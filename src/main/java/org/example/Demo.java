@@ -1,20 +1,30 @@
 package org.example;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.*;
 
 /**
  * @author Derek-huang
  */
 public class Demo {
+
+    private static final Logger logger = LoggerFactory.getLogger(Demo.class);
     public static void main(String[] args) {
         //取交集
         Map<String, String> materialOwnerMap =new HashMap<>(1);
         materialOwnerMap.put("s0","1");
         materialOwnerMap.put("s","1,2");
-        materialOwnerMap.put("s1","1,4");
+        materialOwnerMap.put("s1","1,4,9");
         materialOwnerMap.put("s2","3,1");
         final List<String> strings = verifyOwner(materialOwnerMap);
-        System.out.println(strings);
+        logger.info("取交集{}",strings);
+
+        HashMap<String, String> str = new HashMap<>();
+        str.put("ab","cd");
+        str.put("e","f");
+        logger.info("str-->map{}",str);
     }
 
     public static List<String> verifyOwner(Map<String, String> materialOwnerMap) {
