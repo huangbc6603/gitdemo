@@ -3,6 +3,7 @@ package org.example;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -25,6 +26,15 @@ public class Demo {
         str.put("ab","cd");
         str.put("e","f");
         logger.info("str-->map{}",str);
+
+        if (BigDecimal.ZERO.compareTo(new BigDecimal(0)) < 0){
+            System.out.println("");
+        }
+        System.out.println("");
+
+        final BigDecimal pricetax = new BigDecimal(1.12);
+        final double v = pricetax.setScale(6, BigDecimal.ROUND_HALF_UP).doubleValue();
+        System.out.println(v);
     }
 
     public static List<String> verifyOwner(Map<String, String> materialOwnerMap) {
