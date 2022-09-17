@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
 
 /**
@@ -32,8 +33,8 @@ public class Demo {
         }
         System.out.println("");
 
-        final BigDecimal pricetax = new BigDecimal(1.12);
-        final double v = pricetax.setScale(6, BigDecimal.ROUND_HALF_UP).doubleValue();
+        final BigDecimal pretax = BigDecimal.valueOf(1.12);
+        final double v = pretax.setScale(6, RoundingMode.HALF_UP).doubleValue();
         System.out.println(v);
     }
 
