@@ -15,12 +15,12 @@ public class Demo {
     private static final Logger logger = LoggerFactory.getLogger(Demo.class);
     public static void main(String[] args) {
         //取交集
-        Map<String, String> materialOwnerMap =new HashMap<>(1);
-        materialOwnerMap.put("s0","1");
-        materialOwnerMap.put("s","1,2");
-        materialOwnerMap.put("s1","1,4,9");
-        materialOwnerMap.put("s2","3,1");
-        final List<String> strings = verifyOwner(materialOwnerMap);
+        Map<String, String> map =new HashMap<>(1);
+        map.put("s0","1");
+        map.put("s","1,2");
+        map.put("s1","1,4,9");
+        map.put("s2","3,1");
+        final Object strings = verify(map);
         logger.info("取交集{}",strings);
 
         HashMap<String, String> str = new HashMap<>();
@@ -29,18 +29,18 @@ public class Demo {
         logger.info("str-->map{}",str);
 
         if (BigDecimal.ZERO.compareTo(new BigDecimal(0)) < 0){
-            System.out.println("");
+            logger.info("============");
         }
-        System.out.println("");
-
-        final BigDecimal pretax = BigDecimal.valueOf(1.12);
+        logger.info("============");
+        //四舍五入
+        final BigDecimal pretax = BigDecimal.valueOf(1.5555555);
         final double v = pretax.setScale(6, RoundingMode.HALF_UP).doubleValue();
-        System.out.println(v);
+        logger.info("============{}",v);
     }
 
-    public static List<String> verifyOwner(Map<String, String> materialOwnerMap) {
+    public static List<String> verify(Map<String, String> map) {
         List<List<String>> allOwner = new ArrayList();
-        for (Map.Entry<String, String> entry : materialOwnerMap.entrySet()) {
+        for (Map.Entry<String, String> entry : map.entrySet()) {
             String owner = entry.getValue();
             List<String> owners = new ArrayList<>();
             if (owner.contains(",")) {
