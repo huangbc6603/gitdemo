@@ -12,6 +12,8 @@ import java.util.*;
  */
 public class Demo {
 
+    private static final String COMMA =",";
+
     private static final Logger logger = LoggerFactory.getLogger(Demo.class);
     public static void main(String[] args) {
         //取交集
@@ -43,8 +45,8 @@ public class Demo {
         for (Map.Entry<String, String> entry : map.entrySet()) {
             String owner = entry.getValue();
             List<String> owners = new ArrayList<>();
-            if (owner.contains(",")) {
-                final String[] split = owner.split(",");
+            if (owner.contains(COMMA)) {
+                final String[] split = owner.split(COMMA);
                 owners.addAll(Arrays.asList(split));
                 allOwner.add(owners);
             }else {
