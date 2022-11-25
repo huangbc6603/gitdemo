@@ -1,13 +1,10 @@
 package org.example;
 
+import org.example.dto.Result;
+import org.example.utils.JsonUtils;
+import org.example.utils.RegExpUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * @author Derek-huang
@@ -17,14 +14,15 @@ public class Test {
     private static final Logger logger= LoggerFactory.getLogger(Test.class);
 
     public static void main(String[] args) {
-        List<String> woNos = new ArrayList<>(1);
-        woNos.add("abc");
-        woNos.add("abce");
-        woNos.add("abce");
-        woNos.add("abcf");
-        //重复单号
-        Set<String> woNo = new HashSet<>();
-        Set<String> repeatOrder = woNos.stream().filter(n -> !woNo.add(n)).collect(Collectors.toSet());
-        logger.info("重复单号{}",repeatOrder);
+        System.out.println(RegExpUtil.isMobilePhoneNum("19865076603"));
+        System.out.println(RegExpUtil.isMobilePhoneNum("13684303359"));
+        String jsonStr = JsonUtils.toJson(new User("Derek","18"));
+        System.out.println(jsonStr);
+        final Result<Void> test = test();
+        System.out.println(test.getMsg());
+    }
+
+    public static Result<Void> test(){
+        return Result.failureMsg("asd");
     }
 }
