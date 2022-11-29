@@ -10,7 +10,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -33,7 +35,7 @@ public class TestStreamAPI {
      * distinct--筛选,通过流所生成元素的hashcode()和equals()去除重复元素
      */
 
-    @org.junit.Test
+    @Test
     public void test3(){
         List<Person> persons = getPerson();
         //test
@@ -45,7 +47,7 @@ public class TestStreamAPI {
     }
 
 
-    @org.junit.Test
+    @Test
     public void test2(){
         List<Person> persons = getPerson();
         persons.stream()
@@ -95,6 +97,45 @@ public class TestStreamAPI {
         person2.setSalary(BigDecimal.valueOf(3000));
         personList.add(person2);
         return personList;
+    }
+
+
+    /**
+     * 映射
+     * map---接收Lambda,将元素转换成其他形式或提取信息,接收一个函数作为参数,该函数会被应用到每个元素上,并将其映射成一个新的元素
+     *flatMap--- 接收一个函数作为参数,将流中的每个值都换成另一个流,然后把所有流连接成一个流
+     */
+    @Test
+    public void test4(){
+        List<String> lists = Arrays.asList("aaa","bbb","ccc","ddd","eee");
+        lists.stream()
+                .map((x)-> x.toUpperCase())
+                .forEach(System.out::println);
+    }
+
+    @Test
+    public void test5(){
+        List<Person> list = new ArrayList<>();
+        list.add(new Person("hepengju", 28, BigDecimal.valueOf(30000.0)));
+        list.add(new Person("lisi"    , 44, BigDecimal.valueOf(40000.0)));
+        list.add(new Person("wangwu"  , 55, BigDecimal.valueOf(50000.0)));
+        list.add(new Person("zhaoliu" , 66, BigDecimal.valueOf(60000.0)));
+        list.add(new Person("zhangsan", 33, BigDecimal.valueOf(33333.0)));
+        list.add(new Person("zhangsan", 23, BigDecimal.valueOf(10000.0)));
+
+        // 1.按照年龄分组
+        Map<Integer, List<Person>> collect = list.stream().collect(Collectors.groupingBy(Person::getAge));
+        collect.forEach((k,v)->{
+            System.out.println(k+"="+v);
+        });
+    }
+
+    @Test
+    public void test6(){
+        List<Integer> numbers = Arrays.asList(3, 2, 2, 3, 7, 3, 5);
+        // 获取对应的平方数
+        List<Integer> squaresList = numbers.stream().map( i -> i*i).distinct().collect(Collectors.toList());
+        squaresList.forEach(System.out::println);
     }
 
 }
