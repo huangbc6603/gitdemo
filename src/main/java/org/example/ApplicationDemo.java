@@ -29,7 +29,7 @@ public class ApplicationDemo extends SpringBootServletInitializer {
 
     @GetMapping("/hello")
     public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
-        LOGGER.info("Swagger访问URL{}", "http://localhost:10086/swagger-ui.html");
+        LOGGER.info("Swagger访问URL{}", "http://localhost:8080/swagger-ui.html");
         return String.format("Hello %s!", name);
     }
 }
