@@ -20,7 +20,7 @@ import java.util.List;
 @Api("SpringBootcontroller")
 @RestController
 @RequestMapping
-public class controller {
+public class SysUserController {
 
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
@@ -30,7 +30,7 @@ public class controller {
     @GetMapping("/select")
     public Result<List<SysUser>> demo(){
         List<SysUser> sysUsers = selectService.selectAllUser();
-        LOGGER.info("select sysUser{}", JsonUtils.toJson(sysUsers));
+        LOGGER.info("SysUserController sysUser{}", JsonUtils.toJson(sysUsers));
         return Result.success(sysUsers);
     }
 }
