@@ -71,4 +71,11 @@ public class SpringBootTest {
         }
     }
 
+    @ApiOperation("SpringBootDemo")
+    @GetMapping("/demo")
+    public Result<User> demo() {
+        User user = new User("Derek", "18");
+        return Result.success(user);
+    }
+
 }
