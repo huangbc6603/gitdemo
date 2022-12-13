@@ -3,16 +3,15 @@
  */
 package test;
 
+import com.alibaba.fastjson.JSONObject;
 import org.example.entity.Person;
 import org.example.utils.JsonUtils;
+import org.example.utils.PaAssembleUtil;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -145,7 +144,19 @@ public class TestStreamAPI {
 
     @Test
     public void test8() {
-
+        //拼接json
+        Map<String, Object> paramObject = new HashMap<>();
+        paramObject.put("TT", "AA");
+        List<Object> conditionFilter = new ArrayList<>();
+        JSONObject keyValue = new JSONObject();
+        keyValue.put("Key", "CC");
+        keyValue.put("Value", "EE");
+        conditionFilter.add(PaAssembleUtil.build()
+                .addNodeName("第一关")
+                .addKeyVaue(
+                        keyValue
+                ));
+        System.out.println(JsonUtils.toJson(conditionFilter));
     }
 
     @Test
