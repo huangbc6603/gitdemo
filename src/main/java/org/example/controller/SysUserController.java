@@ -1,6 +1,7 @@
 package org.example.controller;
 
 import io.swagger.annotations.Api;
+import org.example.dao.SysUserBaseMapper;
 import org.example.dto.Result;
 import org.example.entity.SysUser;
 import org.example.rest.SelectService;
@@ -27,10 +28,20 @@ public class SysUserController {
     @Autowired
     private SelectService selectService;
 
+    @Autowired
+    private SysUserBaseMapper sysUserBaseMapper;
+
     @GetMapping("/select")
     public Result<List<SysUser>> demo(){
         List<SysUser> sysUsers = selectService.selectAllUser();
         LOGGER.info("SysUserController sysUser{}", JsonUtils.toJson(sysUsers));
+        return Result.success(sysUsers);
+    }
+
+    @GetMapping("/selectUser")
+    public Result<List<SysUser>> selectUser(){
+        List<SysUser> sysUsers = sysUserBaseMapper.selectUserByName("test");
+        LOGGER.info("SysUserController selectUser{}", JsonUtils.toJson(sysUsers));
         return Result.success(sysUsers);
     }
 }
