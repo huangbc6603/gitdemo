@@ -27,4 +27,8 @@ public class SysUserTest {
         System.out.println(JsonUtils.toJson(sysUsers));
     }
 
+    @Test
+    public void test(){
+
+    }
 }
