@@ -4,6 +4,7 @@ import io.swagger.annotations.Api;
 import org.apache.commons.collections4.CollectionUtils;
 import org.example.dao.SysUserBaseMapper;
 import org.example.dto.Result;
+import org.example.dto.UserDTO;
 import org.example.entity.SysUser;
 import org.example.rest.SelectService;
 import org.example.utils.JsonUtils;
@@ -20,7 +21,7 @@ import java.util.List;
  */
 @Api("SpringBootcontroller")
 @RestController
-@RequestMapping
+@RequestMapping("user")
 public class SysUserController {
 
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
@@ -38,8 +39,8 @@ public class SysUserController {
         return Result.success(sysUsers);
     }
 
-    @PostMapping("/selectUser")
-    public Result<List<SysUser>> selectUser(@RequestBody SysUser user) {
+    @PostMapping("/login")
+    public Result<List<SysUser>> selectUser(@RequestBody UserDTO user) {
         LOGGER.info("获取当前登录人：{}", ShiroUtil.whoAmI());
         List<SysUser> sysUsers = sysUserBaseMapper.selectUserByName(user.getName());
         if (CollectionUtils.isNotEmpty(sysUsers)){
