@@ -1,6 +1,7 @@
 package org.example.controller;
 
 import io.swagger.annotations.Api;
+import org.apache.commons.collections4.CollectionUtils;
 import org.example.dao.SysUserBaseMapper;
 import org.example.dto.Result;
 import org.example.entity.SysUser;
@@ -41,6 +42,11 @@ public class SysUserController {
     public Result<List<SysUser>> selectUser(@RequestBody SysUser user) {
         LOGGER.info("获取当前登录人：{}", ShiroUtil.whoAmI());
         List<SysUser> sysUsers = sysUserBaseMapper.selectUserByName(user.getName());
+        if (CollectionUtils.isNotEmpty(sysUsers)){
+            if (!ShiroUtil.isMe(sysUsers.get(0).getName())){
+                return Result.failureMsg("非当前登录人,无权限,请联系管理员！");
+            }
+        }
         LOGGER.info("SysUserController selectUser{}", JsonUtils.toJson(sysUsers));
         return Result.success(sysUsers);
     }

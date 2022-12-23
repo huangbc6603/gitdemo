@@ -47,13 +47,11 @@ public class CustomizeRealm extends AuthorizingRealm {
         if (token instanceof UsernamePasswordToken) {
             UsernamePasswordToken upt = (UsernamePasswordToken) token;
             String username = upt.getUsername();
-            //char[] password = upt.getPassword();
-
-//            QueryWrapper<SysUser> queryWrapper = new QueryWrapper<>();
-//            queryWrapper.eq("username",username);
+            char[] password = upt.getPassword();
             SysUserExample sysUserExample = new SysUserExample();
-            sysUserExample.createCriteria().andNameEqualTo(username);
-            //根据用户名在数据库中查询到对应的用户
+            sysUserExample.createCriteria().andNameEqualTo(username)
+                    .andPasswordEqualTo(String.valueOf(password));
+            //根据用户名在数据库中查询到对应的用户  http://localhost:8080/login?username=admin&password=admin123
             SysUser sysUser = sysUserMapper.selectByExample(sysUserExample).get(0);
             //表示没有对应的用户
             if (null == sysUser) {

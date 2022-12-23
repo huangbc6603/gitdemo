@@ -5,6 +5,7 @@ package org.example.shiro;
  */
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
@@ -32,8 +33,12 @@ public class CustomizeCredentialsMatcher implements CredentialsMatcher {
         log.info("密码比对");
         char[] rawPassword = (char[]) token.getCredentials();
         String encodePassword = (String) info.getCredentials();
-//        return passwordEncoder.matches(String.copyValueOf(rawPassword),encodePassword);
-        return true;
+        if (StringUtils.isNotBlank(encodePassword)){
+            if (encodePassword.equals(String.valueOf(rawPassword))){
+                return true;
+            }
+        }
+        return false;
     }
 }
 
