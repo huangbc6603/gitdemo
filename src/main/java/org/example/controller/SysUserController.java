@@ -10,9 +10,8 @@ import org.example.utils.JsonUtils;
 import org.example.utils.ShiroUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
-
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -25,7 +24,7 @@ public class SysUserController {
 
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
-    @Qualifier
+    @Resource
     private SelectService selectService;
 
 
@@ -42,7 +41,7 @@ public class SysUserController {
         List<SysUser> sysUsers = selectService.selectUserByName(user.getName());
         if (CollectionUtils.isNotEmpty(sysUsers)){
             if (!ShiroUtil.isMe(sysUsers.get(0).getUserName())){
-                return Result.failureMsg("非当前登录人,无权限,请联系管理员！");
+                return Result.failureMsg("请登录后尝试访问,谢谢");
             }
         }
         LOGGER.info("SysUserController selectUser{}", JsonUtils.toJson(sysUsers));
