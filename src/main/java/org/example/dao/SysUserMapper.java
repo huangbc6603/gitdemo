@@ -1,10 +1,9 @@
 package org.example.dao;
 
+import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.example.entity.SysUser;
 import org.example.entity.SysUserExample;
-
-import java.util.List;
 
 public interface SysUserMapper {
     long countByExample(SysUserExample example);

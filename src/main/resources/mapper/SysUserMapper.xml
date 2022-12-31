@@ -2,11 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.example.dao.SysUserMapper">
   <resultMap id="BaseResultMap" type="org.example.entity.SysUser">
-    <id column="USER_ID" jdbcType="VARCHAR" property="userId" />
-    <result column="NAME" jdbcType="VARCHAR" property="name" />
-    <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
-    <result column="STATUS" jdbcType="VARCHAR" property="status" />
-    <result column="REAL_NAME" jdbcType="VARCHAR" property="realName" />
+    <id column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="login_name" jdbcType="VARCHAR" property="loginName" />
+    <result column="user_password" jdbcType="VARCHAR" property="userPassword" />
+    <result column="user_mobile" jdbcType="VARCHAR" property="userMobile" />
+    <result column="user_email" jdbcType="VARCHAR" property="userEmail" />
+    <result column="user_sex" jdbcType="TINYINT" property="userSex" />
+    <result column="user_age" jdbcType="TINYINT" property="userAge" />
+    <result column="user_birthday" jdbcType="DATE" property="userBirthday" />
+    <result column="user_address" jdbcType="VARCHAR" property="userAddress" />
+    <result column="user_state" jdbcType="TINYINT" property="userState" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="user_id_card" jdbcType="VARCHAR" property="userIdCard" />
+    <result column="user_type" jdbcType="TINYINT" property="userType" />
+    <result column="user_level" jdbcType="TINYINT" property="userLevel" />
+    <result column="user_note" jdbcType="VARCHAR" property="userNote" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,7 +79,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    USER_ID, NAME, PASSWORD, STATUS, REAL_NAME
+    user_id, user_name, login_name, user_password, user_mobile, user_email, user_sex, 
+    user_age, user_birthday, user_address, user_state, create_time, update_time, user_id_card, 
+    user_type, user_level, user_note
   </sql>
   <select id="selectByExample" parameterType="org.example.entity.SysUserExample" resultMap="BaseResultMap">
     select
@@ -87,11 +101,11 @@
     select 
     <include refid="Base_Column_List" />
     from sys_user
-    where USER_ID = #{userId,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from sys_user
-    where USER_ID = #{userId,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="org.example.entity.SysUserExample">
     delete from sys_user
@@ -100,45 +114,125 @@
     </if>
   </delete>
   <insert id="insert" parameterType="org.example.entity.SysUser">
-    insert into sys_user (USER_ID, NAME, PASSWORD, 
-      STATUS, REAL_NAME)
-    values (#{userId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{status,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR})
+    insert into sys_user (user_id, user_name, login_name, 
+      user_password, user_mobile, user_email, 
+      user_sex, user_age, user_birthday, 
+      user_address, user_state, create_time, 
+      update_time, user_id_card, user_type, 
+      user_level, user_note)
+    values (#{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{loginName,jdbcType=VARCHAR}, 
+      #{userPassword,jdbcType=VARCHAR}, #{userMobile,jdbcType=VARCHAR}, #{userEmail,jdbcType=VARCHAR}, 
+      #{userSex,jdbcType=TINYINT}, #{userAge,jdbcType=TINYINT}, #{userBirthday,jdbcType=DATE}, 
+      #{userAddress,jdbcType=VARCHAR}, #{userState,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{userIdCard,jdbcType=VARCHAR}, #{userType,jdbcType=TINYINT}, 
+      #{userLevel,jdbcType=TINYINT}, #{userNote,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="org.example.entity.SysUser">
     insert into sys_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="userId != null">
-        USER_ID,
+        user_id,
       </if>
-      <if test="name != null">
-        NAME,
+      <if test="userName != null">
+        user_name,
       </if>
-      <if test="password != null">
-        PASSWORD,
+      <if test="loginName != null">
+        login_name,
       </if>
-      <if test="status != null">
-        STATUS,
+      <if test="userPassword != null">
+        user_password,
       </if>
-      <if test="realName != null">
-        REAL_NAME,
+      <if test="userMobile != null">
+        user_mobile,
+      </if>
+      <if test="userEmail != null">
+        user_email,
+      </if>
+      <if test="userSex != null">
+        user_sex,
+      </if>
+      <if test="userAge != null">
+        user_age,
+      </if>
+      <if test="userBirthday != null">
+        user_birthday,
+      </if>
+      <if test="userAddress != null">
+        user_address,
+      </if>
+      <if test="userState != null">
+        user_state,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="userIdCard != null">
+        user_id_card,
+      </if>
+      <if test="userType != null">
+        user_type,
+      </if>
+      <if test="userLevel != null">
+        user_level,
+      </if>
+      <if test="userNote != null">
+        user_note,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="userId != null">
         #{userId,jdbcType=VARCHAR},
       </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
       </if>
-      <if test="password != null">
-        #{password,jdbcType=VARCHAR},
+      <if test="loginName != null">
+        #{loginName,jdbcType=VARCHAR},
       </if>
-      <if test="status != null">
-        #{status,jdbcType=VARCHAR},
+      <if test="userPassword != null">
+        #{userPassword,jdbcType=VARCHAR},
       </if>
-      <if test="realName != null">
-        #{realName,jdbcType=VARCHAR},
+      <if test="userMobile != null">
+        #{userMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null">
+        #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null">
+        #{userSex,jdbcType=TINYINT},
+      </if>
+      <if test="userAge != null">
+        #{userAge,jdbcType=TINYINT},
+      </if>
+      <if test="userBirthday != null">
+        #{userBirthday,jdbcType=DATE},
+      </if>
+      <if test="userAddress != null">
+        #{userAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="userState != null">
+        #{userState,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userIdCard != null">
+        #{userIdCard,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null">
+        #{userType,jdbcType=TINYINT},
+      </if>
+      <if test="userLevel != null">
+        #{userLevel,jdbcType=TINYINT},
+      </if>
+      <if test="userNote != null">
+        #{userNote,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -152,19 +246,55 @@
     update sys_user
     <set>
       <if test="row.userId != null">
-        USER_ID = #{row.userId,jdbcType=VARCHAR},
+        user_id = #{row.userId,jdbcType=VARCHAR},
       </if>
-      <if test="row.name != null">
-        NAME = #{row.name,jdbcType=VARCHAR},
+      <if test="row.userName != null">
+        user_name = #{row.userName,jdbcType=VARCHAR},
       </if>
-      <if test="row.password != null">
-        PASSWORD = #{row.password,jdbcType=VARCHAR},
+      <if test="row.loginName != null">
+        login_name = #{row.loginName,jdbcType=VARCHAR},
       </if>
-      <if test="row.status != null">
-        STATUS = #{row.status,jdbcType=VARCHAR},
+      <if test="row.userPassword != null">
+        user_password = #{row.userPassword,jdbcType=VARCHAR},
       </if>
-      <if test="row.realName != null">
-        REAL_NAME = #{row.realName,jdbcType=VARCHAR},
+      <if test="row.userMobile != null">
+        user_mobile = #{row.userMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="row.userEmail != null">
+        user_email = #{row.userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="row.userSex != null">
+        user_sex = #{row.userSex,jdbcType=TINYINT},
+      </if>
+      <if test="row.userAge != null">
+        user_age = #{row.userAge,jdbcType=TINYINT},
+      </if>
+      <if test="row.userBirthday != null">
+        user_birthday = #{row.userBirthday,jdbcType=DATE},
+      </if>
+      <if test="row.userAddress != null">
+        user_address = #{row.userAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="row.userState != null">
+        user_state = #{row.userState,jdbcType=TINYINT},
+      </if>
+      <if test="row.createTime != null">
+        create_time = #{row.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="row.updateTime != null">
+        update_time = #{row.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="row.userIdCard != null">
+        user_id_card = #{row.userIdCard,jdbcType=VARCHAR},
+      </if>
+      <if test="row.userType != null">
+        user_type = #{row.userType,jdbcType=TINYINT},
+      </if>
+      <if test="row.userLevel != null">
+        user_level = #{row.userLevel,jdbcType=TINYINT},
+      </if>
+      <if test="row.userNote != null">
+        user_note = #{row.userNote,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="example != null">
@@ -173,11 +303,23 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update sys_user
-    set USER_ID = #{row.userId,jdbcType=VARCHAR},
-      NAME = #{row.name,jdbcType=VARCHAR},
-      PASSWORD = #{row.password,jdbcType=VARCHAR},
-      STATUS = #{row.status,jdbcType=VARCHAR},
-      REAL_NAME = #{row.realName,jdbcType=VARCHAR}
+    set user_id = #{row.userId,jdbcType=VARCHAR},
+      user_name = #{row.userName,jdbcType=VARCHAR},
+      login_name = #{row.loginName,jdbcType=VARCHAR},
+      user_password = #{row.userPassword,jdbcType=VARCHAR},
+      user_mobile = #{row.userMobile,jdbcType=VARCHAR},
+      user_email = #{row.userEmail,jdbcType=VARCHAR},
+      user_sex = #{row.userSex,jdbcType=TINYINT},
+      user_age = #{row.userAge,jdbcType=TINYINT},
+      user_birthday = #{row.userBirthday,jdbcType=DATE},
+      user_address = #{row.userAddress,jdbcType=VARCHAR},
+      user_state = #{row.userState,jdbcType=TINYINT},
+      create_time = #{row.createTime,jdbcType=TIMESTAMP},
+      update_time = #{row.updateTime,jdbcType=TIMESTAMP},
+      user_id_card = #{row.userIdCard,jdbcType=VARCHAR},
+      user_type = #{row.userType,jdbcType=TINYINT},
+      user_level = #{row.userLevel,jdbcType=TINYINT},
+      user_note = #{row.userNote,jdbcType=VARCHAR}
     <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -185,27 +327,75 @@
   <update id="updateByPrimaryKeySelective" parameterType="org.example.entity.SysUser">
     update sys_user
     <set>
-      <if test="name != null">
-        NAME = #{name,jdbcType=VARCHAR},
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
       </if>
-      <if test="password != null">
-        PASSWORD = #{password,jdbcType=VARCHAR},
+      <if test="loginName != null">
+        login_name = #{loginName,jdbcType=VARCHAR},
       </if>
-      <if test="status != null">
-        STATUS = #{status,jdbcType=VARCHAR},
+      <if test="userPassword != null">
+        user_password = #{userPassword,jdbcType=VARCHAR},
       </if>
-      <if test="realName != null">
-        REAL_NAME = #{realName,jdbcType=VARCHAR},
+      <if test="userMobile != null">
+        user_mobile = #{userMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null">
+        user_email = #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null">
+        user_sex = #{userSex,jdbcType=TINYINT},
+      </if>
+      <if test="userAge != null">
+        user_age = #{userAge,jdbcType=TINYINT},
+      </if>
+      <if test="userBirthday != null">
+        user_birthday = #{userBirthday,jdbcType=DATE},
+      </if>
+      <if test="userAddress != null">
+        user_address = #{userAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="userState != null">
+        user_state = #{userState,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userIdCard != null">
+        user_id_card = #{userIdCard,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null">
+        user_type = #{userType,jdbcType=TINYINT},
+      </if>
+      <if test="userLevel != null">
+        user_level = #{userLevel,jdbcType=TINYINT},
+      </if>
+      <if test="userNote != null">
+        user_note = #{userNote,jdbcType=VARCHAR},
       </if>
     </set>
-    where USER_ID = #{userId,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="org.example.entity.SysUser">
     update sys_user
-    set NAME = #{name,jdbcType=VARCHAR},
-      PASSWORD = #{password,jdbcType=VARCHAR},
-      STATUS = #{status,jdbcType=VARCHAR},
-      REAL_NAME = #{realName,jdbcType=VARCHAR}
-    where USER_ID = #{userId,jdbcType=VARCHAR}
+    set user_name = #{userName,jdbcType=VARCHAR},
+      login_name = #{loginName,jdbcType=VARCHAR},
+      user_password = #{userPassword,jdbcType=VARCHAR},
+      user_mobile = #{userMobile,jdbcType=VARCHAR},
+      user_email = #{userEmail,jdbcType=VARCHAR},
+      user_sex = #{userSex,jdbcType=TINYINT},
+      user_age = #{userAge,jdbcType=TINYINT},
+      user_birthday = #{userBirthday,jdbcType=DATE},
+      user_address = #{userAddress,jdbcType=VARCHAR},
+      user_state = #{userState,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      user_id_card = #{userIdCard,jdbcType=VARCHAR},
+      user_type = #{userType,jdbcType=TINYINT},
+      user_level = #{userLevel,jdbcType=TINYINT},
+      user_note = #{userNote,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=VARCHAR}
   </update>
 </mapper>

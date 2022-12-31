@@ -49,8 +49,8 @@ public class CustomizeRealm extends AuthorizingRealm {
             String username = upt.getUsername();
             char[] password = upt.getPassword();
             SysUserExample sysUserExample = new SysUserExample();
-            sysUserExample.createCriteria().andNameEqualTo(username)
-                    .andPasswordEqualTo(String.valueOf(password));
+            sysUserExample.createCriteria().andLoginNameEqualTo(username)
+                    .andUserPasswordEqualTo(String.valueOf(password));
             //根据用户名在数据库中查询到对应的用户  http://localhost:8080/login?username=admin&password=admin123
             SysUser sysUser = sysUserMapper.selectByExample(sysUserExample).get(0);
             //表示没有对应的用户
@@ -67,7 +67,7 @@ public class CustomizeRealm extends AuthorizingRealm {
                  * 3.第三个是用户的真实的姓名
                  * shiro底层会自己比对token中密码和数据库密码
                  */
-                SimpleAuthenticationInfo sai = new SimpleAuthenticationInfo(username, sysUser.getPassword(), username);//进入CustomizeCredentialsMatcher
+                SimpleAuthenticationInfo sai = new SimpleAuthenticationInfo(username, sysUser.getUserPassword(), username);//进入CustomizeCredentialsMatcher
                 return sai;
             }
         }

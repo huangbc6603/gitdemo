@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface SysUserBaseMapper extends SysUserMapper{
 
-    @Select("SELECT * FROM sys_user t where t.name= #{name}")
+    @Select("SELECT * FROM sys_user t where t.user_name= #{name}")
     @ResultType(org.example.entity.SysUser.class)
     List<SysUser> selectUserByName(@Param("name") String name);
 

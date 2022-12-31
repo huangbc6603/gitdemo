@@ -29,6 +29,7 @@ public class SysUserTest {
 
     @Test
     public void test(){
-
+        List<SysUser> sysUsers = selectService.selectUserByName("derek.huang");
+        System.out.println(sysUsers);
     }
 }
