@@ -25,7 +25,7 @@ import java.util.List;
 @RequestMapping("user")
 public class SysUserController {
 
-    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private SelectService selectService;
@@ -33,23 +33,35 @@ public class SysUserController {
     @Autowired
     private SysUserBaseMapper sysUserBaseMapper;
 
+    /**
+     * 分页请求参数{"pageSize": 2, "startIndex": 0}
+     * @param user
+     * @return
+     */
     @PostMapping("/select")
-    public Result<PageResp<SysUser>> demo(@RequestBody UserDTO user){
+    public Result<PageResp<SysUser>> demo(@RequestBody UserDTO user) {
         final PageResp<SysUser> pageResp = selectService.selectAllUser(user);
-        LOGGER.info("SysUserController sysUser{}", JsonUtils.toJson(pageResp.getDatas()));
+        String msg = JsonUtils.toJson(pageResp.getDatas());
+        logger.info("SysUserController sysUser{}", msg);
         return Result.success(pageResp);
     }
 
+    /**
+     * 登录shiro http://localhost:8080/login?username=admin&password=admin123
+     * @param user
+     * @return
+     */
+
     @PostMapping("/login")
     public Result<List<SysUser>> selectUser(@RequestBody UserDTO user) {
-        LOGGER.info("获取当前登录人：{}", ShiroUtil.whoAmI());
+        String userName = ShiroUtil.whoAmI();
+        logger.info("获取当前登录人：{}", userName);
         List<SysUser> sysUsers = sysUserBaseMapper.selectUserByName(user.getName());
-        if (CollectionUtils.isNotEmpty(sysUsers)){
-            if (!ShiroUtil.isMe(sysUsers.get(0).getName())){
-                return Result.failureMsg("非当前登录人,无权限,请联系管理员！");
-            }
+        if (CollectionUtils.isNotEmpty(sysUsers) && !ShiroUtil.isMe(sysUsers.get(0).getName())) {
+            return Result.failureMsg("非当前登录人,无权限,请联系管理员！");
         }
-        LOGGER.info("SysUserController selectUser{}", JsonUtils.toJson(sysUsers));
+        String users = JsonUtils.toJson(sysUsers);
+        logger.info("SysUserController selectUser{}", users);
         return Result.success(sysUsers);
     }
 }
