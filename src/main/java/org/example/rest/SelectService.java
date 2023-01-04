@@ -1,15 +1,15 @@
 package org.example.rest;
 
+import org.example.dto.UserDTO;
 import org.example.entity.SysUser;
-
-import java.util.List;
+import org.example.utils.PageResp;
 
 /**
  * @author Derek-huang
  */
 public interface SelectService {
 
-    List<SysUser> selectAllUser();
+    PageResp<SysUser> selectAllUser(UserDTO user);
 
     SysUser selectByUserId(String stuId);
 

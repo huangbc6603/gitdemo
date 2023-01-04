@@ -8,6 +8,7 @@ import org.example.dto.UserDTO;
 import org.example.entity.SysUser;
 import org.example.rest.SelectService;
 import org.example.utils.JsonUtils;
+import org.example.utils.PageResp;
 import org.example.utils.ShiroUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,11 +33,11 @@ public class SysUserController {
     @Autowired
     private SysUserBaseMapper sysUserBaseMapper;
 
-    @GetMapping("/select")
-    public Result<List<SysUser>> demo(){
-        List<SysUser> sysUsers = selectService.selectAllUser();
-        LOGGER.info("SysUserController sysUser{}", JsonUtils.toJson(sysUsers));
-        return Result.success(sysUsers);
+    @PostMapping("/select")
+    public Result<PageResp<SysUser>> demo(@RequestBody UserDTO user){
+        final PageResp<SysUser> pageResp = selectService.selectAllUser(user);
+        LOGGER.info("SysUserController sysUser{}", JsonUtils.toJson(pageResp.getDatas()));
+        return Result.success(pageResp);
     }
 
     @PostMapping("/login")
