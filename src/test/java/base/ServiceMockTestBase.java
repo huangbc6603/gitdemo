@@ -1,4 +1,4 @@
-package test;
+package base;
 
 import org.junit.Before;
 import org.junit.runner.RunWith;
