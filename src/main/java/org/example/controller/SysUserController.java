@@ -1,6 +1,7 @@
 package org.example.controller;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiParam;
 import org.apache.commons.collections4.CollectionUtils;
 import org.example.dao.SysUserBaseMapper;
 import org.example.dto.Result;
@@ -14,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -63,5 +65,21 @@ public class SysUserController {
         String users = JsonUtils.toJson(sysUsers);
         logger.info("SysUserController selectUser{}", users);
         return Result.success(sysUsers);
+    }
+
+    /**
+     * easypoi文件导入
+     * 注意commons-lang3版本过低会报错
+     * Caused by: java.lang.NoSuchMethodError: org.apache.commons.lang3.StringUtils.isNoneEmpty
+     * ([Ljava/lang/CharSequence;)
+     * @param file
+     * @return
+     */
+    @PostMapping("/import")
+    public Result<Void> importTemplateField(
+            @ApiParam(value = "上传文件", required = true) @RequestParam MultipartFile file) {
+        String userName = ShiroUtil.whoAmI();
+        logger.info("获取当前登录人：{}", userName);
+        return Result.successMsg(selectService.importTemplateField(file, userName));
     }
 }
