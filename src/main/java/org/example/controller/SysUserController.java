@@ -82,4 +82,17 @@ public class SysUserController {
         logger.info("获取当前登录人：{}", userName);
         return Result.successMsg(selectService.importTemplateField(file, userName));
     }
+
+    /**
+     * 测试事务
+     */
+    @GetMapping("/testTransaction")
+    public Result<Void> testTransaction() {
+        try {
+            selectService.testTransaction();
+        } catch (Exception e) {
+            return Result.failureMsg(e.getMessage());
+        }
+        return Result.success();
+    }
 }

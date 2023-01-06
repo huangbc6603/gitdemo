@@ -15,4 +15,6 @@ public interface SelectService {
     SysUser selectByUserId(String stuId);
 
     String importTemplateField(MultipartFile file, String userName);
+
+    void testTransaction();
 }
