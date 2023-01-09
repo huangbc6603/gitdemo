@@ -7,6 +7,8 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.example.dao.SysRoleMapper;
 import org.example.dao.SysUserBaseMapper;
 import org.example.dao.SysUserMapper;
+import org.example.dto.FinanceInterestStatementListVo;
+import org.example.dto.QueryFinanceInterestStatementDto;
 import org.example.dto.TemplateFieldExcelDTO;
 import org.example.dto.UserDTO;
 import org.example.entity.SysRole;
@@ -23,6 +25,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -101,5 +105,15 @@ public class SelectServiceImpl implements SelectService {
         if (i == 1) {
             throw new BizServiceException("400", "testTransaction success!");
         }
+    }
+
+    @Override
+    public List<FinanceInterestStatementListVo> getInterestList(Integer current, Integer size, QueryFinanceInterestStatementDto dto) {
+        List<FinanceInterestStatementListVo> voList = new ArrayList<>();
+        FinanceInterestStatementListVo vo = new FinanceInterestStatementListVo();
+        vo.setActualInterest(BigDecimal.valueOf(12.55));
+        vo.setActualGetDay("0");
+        voList.add(vo);
+        return voList;
     }
 }

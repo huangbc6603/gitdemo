@@ -1,9 +1,15 @@
 package org.example.controller;
 
+import cn.afterturn.easypoi.excel.ExcelExportUtil;
+import cn.afterturn.easypoi.excel.entity.ExportParams;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.example.dao.SysUserBaseMapper;
+import org.example.dto.FinanceInterestStatementListVo;
+import org.example.dto.QueryFinanceInterestStatementDto;
 import org.example.dto.Result;
 import org.example.dto.UserDTO;
 import org.example.entity.SysUser;
@@ -17,6 +23,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.net.URLEncoder;
 import java.util.List;
 
 /**
@@ -37,6 +45,7 @@ public class SysUserController {
 
     /**
      * 分页请求参数{"pageSize": 2, "startIndex": 0}
+     *
      * @param user
      * @return
      */
@@ -50,6 +59,7 @@ public class SysUserController {
 
     /**
      * 登录shiro http://localhost:8080/login?username=admin&password=admin123
+     *
      * @param user
      * @return
      */
@@ -72,6 +82,7 @@ public class SysUserController {
      * 注意commons-lang3版本过低会报错
      * Caused by: java.lang.NoSuchMethodError: org.apache.commons.lang3.StringUtils.isNoneEmpty
      * ([Ljava/lang/CharSequence;)
+     *
      * @param file
      * @return
      */
@@ -95,4 +106,27 @@ public class SysUserController {
         }
         return Result.success();
     }
+
+    /**
+     * 导出
+     */
+    @ApiOperation(value = "导出(财务中心-报表统计-利息情况)列表", httpMethod = "GET", notes = "dev - Ming")
+    @GetMapping("/exportExcel")
+    public void export(@RequestParam(defaultValue = "1") Integer current, @RequestParam(defaultValue = "10") Integer size,
+                       QueryFinanceInterestStatementDto dto, HttpServletResponse response) {
+        try {
+            // 告诉浏览器用什么软件可以打开此文件
+            response.setHeader("content-Type", "application/vnd.ms-excel");
+            // 下载文件的默认名称
+            response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("利息情况数据表", "UTF-8") + ".xls");
+            //编码
+            response.setCharacterEncoding("UTF-8");
+            //ExcelExportUtil.exportExcel()方法的第二个参数为对应实体class对象，第三个参数为对应实体的list集合
+            Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams(), FinanceInterestStatementListVo.class, selectService.getInterestList(current, size, dto));
+            workbook.write(response.getOutputStream());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
