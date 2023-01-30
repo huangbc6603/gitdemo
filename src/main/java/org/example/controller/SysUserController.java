@@ -37,6 +37,8 @@ public class SysUserController {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    private static final String PARAM_ERROR = "参数异常";
+
     @Autowired
     private SelectService selectService;
 
@@ -66,6 +68,9 @@ public class SysUserController {
 
     @PostMapping("/login")
     public Result<List<SysUser>> selectUser(@RequestBody UserDTO user) {
+        if (user==null){
+            return Result.failureMsg(PARAM_ERROR);
+        }
         String userName = ShiroUtil.whoAmI();
         logger.info("获取当前登录人：{}", userName);
         List<SysUser> sysUsers = sysUserBaseMapper.selectUserByName(user.getName());
