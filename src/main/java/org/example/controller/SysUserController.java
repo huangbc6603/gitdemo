@@ -45,6 +45,9 @@ public class SysUserController {
     @Autowired
     private SysUserBaseMapper sysUserBaseMapper;
 
+//    @Resource
+//    private RedissonClient redissonClient;
+
     /**
      * 分页请求参数{"pageSize": 2, "startIndex": 0}
      *
@@ -68,7 +71,7 @@ public class SysUserController {
 
     @PostMapping("/login")
     public Result<List<SysUser>> selectUser(@RequestBody UserDTO user) {
-        if (user==null){
+        if (user == null) {
             return Result.failureMsg(PARAM_ERROR);
         }
         String userName = ShiroUtil.whoAmI();
@@ -133,5 +136,65 @@ public class SysUserController {
             e.printStackTrace();
         }
     }
+
+//    /**
+//     * redisson锁测试
+//     */
+//    @ApiOperation(value = "redisson锁测试", httpMethod = "GET", notes = "dev - Ming")
+//    @GetMapping("/testRedisLock")
+//    public Result<String> testRedisLock() {
+//        String lockName = "TEST-REDIS-LOCK";
+//        RLock rLock = redissonClient.getLock(lockName);
+//        try {
+//            boolean isLocked = rLock.tryLock(0, 1, TimeUnit.MINUTES);
+//            if (isLocked) {
+//                // TODO 业务逻辑
+//                logger.info("拿到锁，哈哈哈哈哈哈{}", lockName);
+//                return Result.failureMsg("拿到锁，哈哈哈哈哈哈");
+//            } else {
+//                logger.info("没有拿到锁.....{}", lockName);
+//                return Result.failureMsg("没有拿到锁...");
+//            }
+//        } catch (Exception e) {
+//            logger.info("异常", e);
+//        } finally {
+//            try {
+//                rLock.unlock();
+//            } catch (Exception e) {
+//                logger.info("锁释放异常", e);
+//            }
+//        }
+//        return Result.success("测试成功");
+//    }
+//
+//    /**
+//     * redisson锁测试
+//     */
+//    @ApiOperation(value = "redisson锁测试", httpMethod = "GET", notes = "dev - Ming")
+//    @GetMapping("/testRedisLock1")
+//    public Result<String> testRedisLock1() {
+//        String lockName = "TEST-REDIS-LOCK";
+//        RLock rLock = redissonClient.getLock(lockName);
+//        try {
+//            boolean isLocked = rLock.tryLock(0, 1, TimeUnit.MINUTES);
+//            if (isLocked) {
+//                // TODO 业务逻辑
+//                logger.info("拿到锁，哈哈哈哈哈哈{}", lockName);
+//                return Result.failureMsg("拿到锁，哈哈哈哈哈哈");
+//            } else {
+//                logger.info("没有拿到锁.....{}", lockName);
+//                return Result.failureMsg("没有拿到锁...");
+//            }
+//        } catch (Exception e) {
+//            logger.info("异常", e);
+//        } finally {
+//            try {
+//                rLock.unlock();
+//            } catch (Exception e) {
+//                logger.info("锁释放异常", e);
+//            }
+//        }
+//        return Result.success("测试成功");
+//    }
 
 }

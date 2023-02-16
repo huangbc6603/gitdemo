@@ -137,6 +137,12 @@
             <version>2.9.0</version>
             <scope>provided</scope>
         </dependency>
+        <!-- 原生，本章使用-->
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson</artifactId>
+            <version>3.13.6</version>
+        </dependency>
 
     </dependencies>
 
