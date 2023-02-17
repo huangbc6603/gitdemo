@@ -9,9 +9,22 @@ public class User {
 
     private String age;
 
+    private Integer weight;
+
+    public User() {
+    }
+
     public User(String name, String age) {
         this.name = name;
         this.age = age;
+    }
+
+    public Integer getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Integer weight) {
+        this.weight = weight;
     }
 
     public String getName() {
