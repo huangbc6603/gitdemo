@@ -6,12 +6,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.example.dao.SysUserBaseMapper;
-import org.example.dto.FinanceInterestStatementListVo;
-import org.example.dto.QueryFinanceInterestStatementDto;
-import org.example.dto.Result;
-import org.example.dto.UserDTO;
+import org.example.dto.*;
 import org.example.entity.SysUser;
 import org.example.rest.SelectService;
 import org.example.utils.JsonUtils;
@@ -20,10 +18,13 @@ import org.example.utils.ShiroUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.net.URLEncoder;
 import java.util.List;
 
@@ -196,5 +197,38 @@ public class SysUserController {
 //        }
 //        return Result.success("测试成功");
 //    }
+
+    /**
+     * 测试入参校验
+     */
+    @ApiOperation("测试入参校验")
+    @PostMapping("/testMethodValid")
+    public Result<Void> testMethodValid(@RequestBody @Valid TestMethodValidDTO dto) {
+//        logger.info("测试入参校验{}", JsonUtils.toJson(dto));
+//        String errorMsg = checkErrorMsg(errors);
+//        if (StringUtils.isNotBlank(errorMsg)) {
+//            return Result.failureMsg(errorMsg);
+//        }
+        return Result.success();
+
+    }
+
+    private String checkErrorMsg(BindingResult errors) {
+        StringBuilder errorMsg = new StringBuilder();
+        //判断数据绑定结果 errors.getErrorCount()>0 也可以
+        if (errors.hasFieldErrors()) {
+            //获得所有的属性错误
+            List<FieldError> fieldErrors = errors.getFieldErrors();
+            for (FieldError fieldError : fieldErrors) {
+                //打印参数和错误信息
+                logger.info("参数错误信息:{}", fieldError.getDefaultMessage());
+                errorMsg.append(fieldError.getField() + fieldError.getDefaultMessage() + ";");
+            }
+        }
+        if (StringUtils.isNotBlank(errorMsg)) {
+            return errorMsg.substring(0, errorMsg.length() - 1);
+        }
+        return errorMsg.toString();
+    }
 
 }
