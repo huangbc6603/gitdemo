@@ -5,7 +5,6 @@ import org.example.dao.SysUserMapper;
 import org.example.entity.SysUser;
 import org.example.entity.SysUserExample;
 import org.example.rest.SelectService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
