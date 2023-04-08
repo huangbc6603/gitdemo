@@ -26,4 +26,10 @@ public class DemoXxlJob extends IJobHandler {
         String format = simpleDateFormat.format(date);
         logger.info("当前时间:" + format);
     }
+    /**
+     *
+     * 我对贵公司Java后端开发岗位很感兴趣，有6年Java开发经验，
+     * 擅长...目前已经离职，非常期望得到您的恢复，感谢!.
+     *
+     */
 }
