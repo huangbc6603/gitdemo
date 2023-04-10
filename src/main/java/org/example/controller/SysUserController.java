@@ -2,6 +2,7 @@ package org.example.controller;
 
 import io.swagger.annotations.Api;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.shiro.util.Assert;
 import org.example.dto.Result;
 import org.example.dto.UserDTO;
 import org.example.entity.SysUser;
@@ -30,7 +31,8 @@ public class SysUserController {
 
     @GetMapping("/select")
     public Result<List<SysUser>> demo(){
-        List<SysUser> sysUsers = selectService.selectAllUser();
+        List<SysUser> sysUsers = null;
+        Assert.notNull(sysUsers,"用户不存在！！！");
         logger.info("SysUserController sysUser{}", JsonUtils.toJson(sysUsers));
         return Result.success(sysUsers);
     }
