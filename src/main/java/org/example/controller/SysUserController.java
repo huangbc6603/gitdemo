@@ -8,6 +8,7 @@ import org.example.dto.UserDTO;
 import org.example.entity.SysUser;
 import org.example.rest.SelectService;
 import org.example.utils.JsonUtils;
+import org.example.utils.NoRepeatSubmit;
 import org.example.utils.ShiroUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +30,7 @@ public class SysUserController {
     private SelectService selectService;
 
 
+    @NoRepeatSubmit
     @GetMapping("/select")
     public Result<List<SysUser>> demo(){
         List<SysUser> sysUsers = null;
