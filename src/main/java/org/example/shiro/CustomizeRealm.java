@@ -51,7 +51,7 @@ public class CustomizeRealm extends AuthorizingRealm {
             SysUserExample sysUserExample = new SysUserExample();
             sysUserExample.createCriteria().andLoginNameEqualTo(username)
                     .andUserPasswordEqualTo(String.valueOf(password));
-            //根据用户名在数据库中查询到对应的用户  http://localhost:8080/login?username=admin&password=admin123
+            //根据用户名在数据库中查询到对应的用户  http://localhost:8080/login?username=南风喃&password=8888
             SysUser sysUser = sysUserMapper.selectByExample(sysUserExample).get(0);
             //表示没有对应的用户
             if (null == sysUser) {

@@ -1,6 +1,7 @@
 package org.example.entity;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 /**
  * @author Derek-huang
@@ -53,5 +54,25 @@ public class Person {
                 ", age=" + age +
                 ", salary=" + salary +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Person)) return false;
+
+        Person person = (Person) o;
+
+        if (!Objects.equals(name, person.name)) return false;
+        if (!Objects.equals(age, person.age)) return false;
+        return Objects.equals(salary, person.salary);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (age != null ? age.hashCode() : 0);
+        result = 31 * result + (salary != null ? salary.hashCode() : 0);
+        return result;
     }
 }
