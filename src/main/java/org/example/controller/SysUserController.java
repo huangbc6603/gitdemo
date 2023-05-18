@@ -11,6 +11,7 @@ import org.example.rest.SelectService;
 import org.example.test.User;
 import org.example.utils.JsonUtils;
 import org.example.utils.NoRepeatSubmit;
+import org.example.utils.PageResp;
 import org.example.utils.ShiroUtil;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
@@ -23,7 +24,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * @author Derek-huang
@@ -185,5 +189,32 @@ public class SysUserController {
         String overrideString = stringRedisTemplate.opsForValue().get("absentKey");
         System.out.println("通过set(K key, V value, long offset)方法覆盖部分的值:"+overrideString);
 
+        ReentrantLock reentrantLock = new ReentrantLock();
+        try {
+            reentrantLock.tryLock(10,TimeUnit.MINUTES);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        ExecutorService executorService = Executors.newFixedThreadPool(5);
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        });
     }
+
+
+    public static void main(String[] args) {
+        User user = new User("zhangsan", "22");
+    }
+
+
+    @PostMapping("/selectAllUser")
+    public Result<PageResp<SysUser>> selectAllUser(@RequestBody UserDTO userDTO){
+        PageResp<SysUser> pageResp = selectService.selectAllUser(userDTO);
+        return Result.success(pageResp);
+    }
+
 }

@@ -5,13 +5,17 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.example.dto.Result;
+import org.example.exception.BizServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Author: Derek.huang on 2023/4/11 14:50.
@@ -21,6 +25,9 @@ import javax.servlet.http.HttpServletRequest;
 public class NoRepeatSubmitAop {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    @Resource
+    private StringRedisTemplate stringRedisTemplate;
 
     /**
      * 切入点
@@ -50,8 +57,22 @@ public class NoRepeatSubmitAop {
             return Result.fail(400, "请勿重复提交或者操作过于频繁！");
         }*/
         //通过，执行下一步
-        Object o = joinPoint.proceed();
-        return Result.failureMsg("请勿重复提交或者操作过于频繁！");
+//        Object o = joinPoint.proceed();
+//        return Result.failureMsg("请勿重复提交或者操作过于频繁！");
+
+        Boolean lock = stringRedisTemplate.opsForValue().setIfAbsent("lock", key, 10, TimeUnit.MINUTES);
+        if (lock){
+            //通过，执行下一步
+            Object o = joinPoint.proceed();
+            String curLock = stringRedisTemplate.opsForValue().get("lock");
+            if (key.equals(curLock)){
+                //如果curLock的值等于当前uuid的值  那么就删除锁
+//                stringRedisTemplate.delete("lock");
+            }
+            return Result.success();
+        }else{
+            throw new BizServiceException("500","请勿重复提交或者操作过于频繁！");
+        }
 
     }
 }

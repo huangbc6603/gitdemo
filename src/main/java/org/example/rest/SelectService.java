@@ -1,7 +1,8 @@
 package org.example.rest;
 
-import org.apache.ibatis.annotations.Param;
+import org.example.dto.UserDTO;
 import org.example.entity.SysUser;
+import org.example.utils.PageResp;
 
 import java.util.List;
 
@@ -29,5 +30,8 @@ public interface SelectService {
      * @return
      */
     List<SysUser> selectUserByName(String name);
+
+    PageResp<SysUser> selectAllUser(UserDTO user);
+
 
 }

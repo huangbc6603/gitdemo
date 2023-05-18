@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.dao.SysUserBaseMapper">
+
+    <select id="listByQuery" parameterType="org.example.dto.UserDTO" resultType="org.example.entity.SysUser">
+        SELECT * FROM sys_user t where 1=1
+        <if test="name != null and name!=''">
+            <bind name="name" value="'%'+name+'%'"/>
+            and t.login_name like #{name}
+        </if>
+    </select>
+</mapper>

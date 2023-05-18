@@ -6,7 +6,7 @@ import lombok.Data;
  * @author Derek-huang
  */
 @Data
-public class UserDTO {
+public class UserDTO extends PageReq{
 
     private String name;
 
