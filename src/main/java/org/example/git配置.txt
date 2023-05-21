@@ -1,0 +1,26 @@
+
+//设置git 用户名邮箱
+$ git config --global user.name "Derek"
+$ git config --global user.email "huangbc_6603@163.com"
+
+
+//查看自己的用户名和邮箱地址：
+$ git config user.name
+$ git config user.email
+
+
+ git log --pretty=oneline  查看提交历史记录、
+ git remote -v 查看远程仓库
+  git commit -m 'add UUiD' 提交暂存区
+  git status 查看状态
+  
+  git branck xxx  创建分之
+  
+  git checkout xxx 切换到某分之
+  
+   git branch -a  查看所有分之
+
+   git回退某个版本
+   1、git log
+   2、git reset --hard 139dcfaa558e3276b30b6b2e5cbbb9c00bbdca96
+   git push -f -u origin master 

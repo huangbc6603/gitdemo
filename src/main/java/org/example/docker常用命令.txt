@@ -1,0 +1,63 @@
+1、启动docker   systemctl  start docker
+2、docker images 查看镜像
+3、docker ps -a 查看运行容器
+4、进入容器 docker exec -it  <容器名> /bin/bash
+5、docker inspect --format='{{.NetworkSettings.IPAddress}}' mysql-master 查看docker容器id
+
+[root@localhost ~]# vim /etc/sysconfig/network-scripts/ifcfg-ens33 
+mkdir  touch
+
+docker 常用命令  docker --helper 查看命令
+
+docker ps 查看当前运行的容器
+
+docker imags 查看已下载镜像
+
+docker search redis 搜索redis镜像
+
+docker pull redis:6.2.6  拉去redis 6.2.6版本镜像
+
+docker run -itd --name redis -p 6379:6379 redis:6.2.6   运行docker容器
+
+启动docker容器   systemctl restart docker
+进入redis:  (1)docker exec -it redis /bin/bash(2)redis-cli    
+退出redis : exit
+127.0.0.1:6379> config get requirepass 查看redis 密码
+config set requirepass   XXXXXx 设置redis密码。
+
+docker run -p 6379:6379 --name redis -v /home/redis/data:/data -v /home/redis/conf/redis.conf:/etc/redis/redis.conf --restart=always --network host -d redis redis-server /etc/redis/redis.conf
+
+docker  stop mysql  关闭mysql
+
+
+
+
+docker run --name mysql \
+-p 3306:3306 \
+-e MYSQL_ROOT_PASSWORD=123456 \
+-v /home/mysql/data:/var/lib/mysql \
+-v /home/mysql/log:/var/log/mysql \
+--restart=always \
+-d mysql:8.0.28 \
+--character-set-server=utf8mb4 \
+--collation-server=utf8mb4_unicode_ci \
+--datadir=/var/lib/mysql \
+--default-authentication-plugin=mysql_native_password
+
+rabbitMQ docker运行
+docker run -dit --name rabbitmq3.7.7 -e RABBITMQ_DEFAULT_USER=guest -e RABBITMQ_DEFAULT_PASS=guest -p 15672:15672 -p 5672:5672 rabbitmq:3.7.7-management
+
+docker run -d --hostname rabbitmq --name rabbit -v /home/docker/rabbitmq:/var/lib/rabbitmq -e RABBITMQ_DEFAULT_USER=root -e RABBITMQ_DEFAULT_VHOST=my_vhost -e RABBITMQ_DEFAULT_PASS=root123 -p 15672:15672 -p 5672:5672 -p 1883:1883 --restart=always rabbitmq:3.7.7-management
+
+
+
+
+
+
+
+ 
+
+
+
+
+
