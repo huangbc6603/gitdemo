@@ -14,6 +14,7 @@ springboot 部署docker 步骤
 2、创建Dockerfile
 3、sudo docker build . -t springboot-demo:v1.0
 4、sudo docker run -d -p 8087:8088 --name springboot-demo springboot-demo:v1.0
+5、docker logs -f --tail=100 test-demo  动态查日志
 
 
 
