@@ -206,7 +206,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.test.project.ProjectApplication</mainClass>
+                    <mainClass>org.example.ApplicationDemo</mainClass>
                 </configuration>
                 <executions>
                     <execution>
