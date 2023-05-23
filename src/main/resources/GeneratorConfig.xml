@@ -9,6 +9,8 @@
     <!--    <classPathEntry  location="C:\Users\lenovo\Desktop\Software_project\java\mysql-connector-java-8.0.28/mysql-connector-java-8.0.28.jar"/>-->
 
     <context id="DB2Tables" targetRuntime="MyBatis3">
+        <!-- 只需要在此处添加这一行配置, 重新逆向生成mapper映射文件替换即可 -->
+        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin"/>
         <!-- 实体类生成序列化属性-->
         <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
         <!-- 实体类重写HashCode()和equals()-->

@@ -1,0 +1,19 @@
+
+1、package打jar包,pom文件中启动类找不到
+解决方法：mainClass=====org.example.ApplicationDemo
+2、mybatis-Generator重复生成mapperResult
+解决方法：GrneratorConfig中添加
+<!-- 只需要在此处添加这一行配置, 重新逆向生成mapper映射文件替换即可 -->
+<plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin"/>
+3、打包跳过test
+mvn clean install package '-Dmaven.test.skip=true'
+
+
+springboot 部署docker 步骤
+1、mvn clean install package '-Dmaven.test.skip=true'
+2、创建Dockerfile
+3、sudo docker build . -t springboot-demo:v1.0
+4、sudo docker run -d -p 8087:8088 --name springboot-demo springboot-demo:v1.0
+
+
+
