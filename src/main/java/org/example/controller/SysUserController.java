@@ -22,6 +22,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ExecutorService;
@@ -212,7 +213,7 @@ public class SysUserController {
 
 
     @PostMapping("/selectAllUser")
-    public Result<PageResp<SysUser>> selectAllUser(@RequestBody UserDTO userDTO){
+    public Result<PageResp<SysUser>> selectAllUser(@RequestBody @Valid UserDTO userDTO){
         PageResp<SysUser> pageResp = selectService.selectAllUser(userDTO);
         return Result.success(pageResp);
     }
