@@ -42,7 +42,7 @@ public class LoginController {
         return result;
     }
 
-    @RequestMapping("/un")
+    @GetMapping("/un")
     public Object unLogin(){
         Map<String,Object> result = new HashMap<>();
         result.put("code",-1);
