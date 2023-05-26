@@ -49,8 +49,12 @@ docker run -dit --name rabbitmq3.7.7 -e RABBITMQ_DEFAULT_USER=guest -e RABBITMQ_
 
 docker run -d --hostname rabbitmq --name rabbit -v /home/docker/rabbitmq:/var/lib/rabbitmq -e RABBITMQ_DEFAULT_USER=root -e RABBITMQ_DEFAULT_VHOST=my_vhost -e RABBITMQ_DEFAULT_PASS=root123 -p 15672:15672 -p 5672:5672 -p 1883:1883 --restart=always rabbitmq:3.7.7-management
 
+docker run -it centos-latest 进入centos容器
 
-
+ADD 除了拷贝文件还可以下载文件
+例如：ADD http://www.baidu.com  .
+COPE
+只能拷贝一个文件
 
 
 
