@@ -218,4 +218,10 @@ public class SysUserController {
         return Result.success(pageResp);
     }
 
+    @GetMapping("/selectUser")
+    public Result<SysUser> selectUser(@PathVariable(value = "userId") String userId){
+        SysUser sysUser = selectService.selectUser(userId);
+        return Result.success(sysUser);
+    }
+
 }
