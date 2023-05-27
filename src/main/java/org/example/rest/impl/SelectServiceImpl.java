@@ -47,4 +47,9 @@ public class SelectServiceImpl implements SelectService {
         List<SysUser> sysUsers = sysUserBaseMapper.listByQuery(user);
         return PageUtil.getPageResp(sysUsers, sysUsers);
     }
+
+    @Override
+    public SysUser selectUser(String userId) {
+        return sysUserBaseMapper.selectByPrimaryKey("888");
+    }
 }

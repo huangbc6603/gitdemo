@@ -33,5 +33,7 @@ public interface SelectService {
 
     PageResp<SysUser> selectAllUser(UserDTO user);
 
+    SysUser selectUser(String userId);
+
 
 }
